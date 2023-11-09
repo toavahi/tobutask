@@ -1,0 +1,86 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+#define Size 10
+
+class Stack{
+  int *arr;
+  int top;
+  int capacity;
+  public:
+    Stack(int size = Size){
+      arr = new int[size];
+      capacity = size;
+      top = -1;
+    }
+    ~Stack(){
+      delete[] arr;
+      }
+
+  void push(int x){
+    if (isFull()) {
+    cout << "Overflow\nProgram Terminated\n";
+    exit(EXIT_FAILURE);
+    }
+  
+
+  cout << "Inserting " << x << endl;
+  arr[++top] = x;
+  }
+
+  int pop(){
+    if (isEmpty()) {
+    cout << "Underflow\nProgram Terminated\n";
+    exit(EXIT_FAILURE);
+    }
+
+    cout << "Removing " << peek() << endl;
+
+    return arr[top--];
+  }
+
+  int peek(){
+     if (!isEmpty()) {
+      return arr[top];
+    } else {
+      exit(EXIT_FAILURE);
+    }
+  }
+
+  int size(){return top+1;}
+
+  bool isEmpty(){
+    return top == -1;
+  }
+
+  bool isFull(){
+    return top == capacity - 1;
+  }
+};
+
+
+int main(){
+Stack pt(3);
+
+  pt.push(1);
+  pt.push(2);
+
+  pt.pop();
+  pt.pop();
+
+  pt.push(3);
+
+  cout << "The top element is " << pt.peek() << endl;
+  cout << "The stack size is " << pt.size() << endl;
+
+  pt.pop();
+
+  if (pt.isEmpty()) {
+    cout << "The stack is empty\n";
+  } else {
+    cout << "The stack is not empty\n";
+  }
+
+  return 0;
+}
